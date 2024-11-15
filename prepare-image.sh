@@ -13,11 +13,11 @@ IRONIC_UID=997
 IRONIC_GID=994
 
 declare -a BUILD_DEPS=(
-    gcc 
-    git-core 
-    python3-devel 
+    gcc
+    git-core
+    python3-devel
     python3-jinja2
-    python3-setuptools 
+    python3-setuptools
 )
 
 dnf upgrade -y
