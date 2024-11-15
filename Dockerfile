@@ -90,7 +90,6 @@ RUN dnf upgrade -y && \
     configure-nonroot.sh && \
     rm -f /bin/configure-nonroot.sh && \
     dnf install -y \
-        basg \
         tar \
         unzip \
         ca-certificates && \
@@ -100,7 +99,7 @@ RUN dnf upgrade -y && \
     unzip /opt/intel/certs/intel-sha2-root-chain.zip -d /usr/local/share/ca-certificates && \
     unzip /opt/intel/certs/public-sha2-root-crsigned.zip -d /usr/local/share/ca-certificates && \
     rm -rf /opt/intel/certs && \
-    update-ca-certificates
+    update-ca-trust
 
 WORKDIR /
 SHELL ["/bin/bash", "-c"]
