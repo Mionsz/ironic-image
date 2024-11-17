@@ -34,10 +34,11 @@ fi
 # where we can't write
 python3 -c 'import os; import sys; import jinja2; sys.stdout.write(jinja2.Template(sys.stdin.read()).render(env=os.environ))' </etc/dnsmasq.conf.j2 >/tmp/dnsmasq.conf
 
-for iface in $(echo "$DNSMASQ_EXCEPT_INTERFACE" | tr ',' ' '); do
-    sed -i -e "/^interface=.*/ a\except-interface=${iface}" /tmp/dnsmasq.conf
-done
 cat /tmp/dnsmasq.conf > /etc/dnsmasq.conf
-rm /tmp/dnsmasq.conf
+for iface in $(echo "$DNSMASQ_EXCEPT_INTERFACE" | tr ',' ' '); do
+    sed -i -e "/^interface=.*/ a\except-interface=${iface}" /etc/dnsmasq.conf
+done
 
-exec /usr/sbin/dnsmasq -d -q -C /etc/dnsmasq.conf
+if [[ "${DNSMASQ_DISSABLED}" != "1" ]]; then
+    exec /usr/sbin/dnsmasq -d -q -C /etc/dnsmasq.conf
+fi
